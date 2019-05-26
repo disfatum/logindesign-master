@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head><link rel="stylesheet" href="/javax.faces.resource/charts/charts.css.jsf?ln=primefaces"/></h:head>
+
+<h:body>
+    <h2>Таблица Станций</h2>
+	
+    <h:form>
+   
+        <p:pickList id="PojoPickList" value="#{pickListView.themes}" var="theme" 
+        converter="empConverter"
+                itemValue="#{theme}" itemLabel="#{theme.name}" showSourceControls="true" showTargetControls="true"
+                showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" responsive="true">
+         
+        <f:facet name="sourceCaption">Станции и их ID</f:facet>
+        <f:facet name="targetCaption">Выбранные станции</f:facet>
+ 
+        <p:ajax event="transfer" listener="#{pickListView.onTransfer}"  />
+        <p:ajax event="select" listener="#{pickListView.onSelect}" />
+        <p:ajax event="unselect" listener="#{pickListView.onUnselect}" />
+        <p:ajax event="reorder" listener="#{pickListView.onReorder}" />
+         
+        <p:column style="width:15%">
+            <h:outputText value="#{theme.id}"/> 
+        </p:column>
+        <p:column style="width:85%">
+            <h:outputText value="#{theme.name}"/>
+        </p:column>
+    </p:pickList>
+    <p:growl id="growl" showDetail="true" />
+ 
+     	<h:panelGrid columns="2" cellpadding="5">
+			<p:chart type="line" model="#{chartView.lineModel2}" style="height:300px;"/>
+    	</h:panelGrid>
+    </h:form>
+</h:body>
+</html>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+
+<h:body>
+    <h2>Таблица Станций</h2>
+	
+    <h:form>
+     <table >
+        <p:dataTable
+         id="checkboxDT"
+         selection="#{StationsBean.selected}" 
+         var="descriptionfile" 
+         value="#{StationsBean.data.get(4)}"
+                     filteredValue="#{StationsBean.filtered}"
+                     selectionMode="multiple"
+                     rowKey="#{DescriptionFile.stationID}">
+                     
+                     <p:ajax event="rowSelect"  listener="#{StationsBean.onRowSelect}" />
+					 <p:ajax event="rowUnselect"  listener="#{StationsBean.onRowUnselect}" />
+					 
+            <p:column  headerText="ID Станции" filterBy="#{DescriptionFile.stationID}" filterMatchMode="contains" >
+                <h:outputText value="#{DescriptionFile.stationID}"/>
+            </p:column>
+
+            <p:column  headerText="Название Станции" filterBy="#{DescriptionFile.nameStation}" filterMatchMode="contains">
+                <h:outputText value="#{DescriptionFile.nameStation}"/>
+            </p:column>
+             <f:facet name="header">
+            <p:commandButton process="checkboxDT"  icon="pi pi-search" value="View" oncomplete="PF('multiCarDialog').show()" />
+        	</f:facet>
+        	
+        </p:dataTable>
+       </table>
+       <p:dialog header="Selected Cars" widgetVar="multiCarDialog" autoUpdate="true" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="220">
+        <p:outputPanel id="multiCarDetail" style="text-align:center;">
+            <ui:repeat value="#{StationsBean.selected}" var="DescriptionFile"> 
+                <h:outputText value="#{DescriptionFile.stationID}" style="display:block"/>
+            </ui:repeat>
+        </p:outputPanel>
+    </p:dialog>
+    </h:form>
+</h:body>
+</html>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+<link rel="stylesheet" href="/javax.faces.resource/charts/charts.css.jsf?ln=primefaces"/>
+</h:head>
+
+<h:body style="
+			margin: 0;
+    		padding: 0;
+			background: rgb(112,118,229)  radial-gradient(circle, rgba(112,118,229,1) 29%, rgba(0,255,239,1) 100%);
+			">
+    <h2>Содержание</h2>
+    <h:form id="mainForm" >
+        <table>
+   			<tr>
+                <td style="width:300px;">
+			        <p:tree 
+			        	
+				        style="width: 1020px;
+				        border: transparent;
+				        font-size: 22px;
+				     	text-decoration: none;
+				     	text-align:left;
+				     	font-style: Consolas;" 
+				     	value="#{treeEventsView.root}" 
+				     	var="node" selectionMode="single" 
+				     	selection="#{treeEventsView.selectedNode}"
+				     	animate="true">
+					        <p:ajax event="expand"  listener="#{treeEventsView.onNodeExpand}" />
+					        <p:ajax event="collapse"  listener="#{treeEventsView.onNodeCollapse}" />
+					        <p:ajax event="select"  listener="#{treeEventsView.onNodeSelect}" update="j_idt10:mainForm:detailsPanel"/>
+					        <p:ajax event="unselect"  listener="#{treeEventsView.onNodeUnselect}" />
+				            <p:treeNode>
+				                <h:outputText value="#{node}"/>
+				            </p:treeNode>
+			        </p:tree>
+        		</td>
+   				  <td style="vertical-align:top;padding: 50px; ">
+                    <p:outputPanel id="detailsPanel" style="display:block">
+                        <table>
+                            <tr>
+                                <td>Сдесь могла бы быть ваша реклама </td>
+                                <td> Или инфа из файла </td>
+                                <td>#{treeEventsView.FILEPATH}</td>
+                            </tr>
+                            
+                        </table>
+                    </p:outputPanel>
+                    </td>
+                </tr>
+          </table>
+    </h:form>
+</h:body>
+</html>

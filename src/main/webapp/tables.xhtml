@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"/>
+</h:head>
+
+<h:body style="margin:0;
+        padding:0;
+        width:100%;
+        height:100%;">
+    <h2>Таблица Станций</h2>
+	
+    <h:form >
+   
+        <p:pickList id="PojoPickList" value="#{pickListView.themes}" var="theme" 
+        converter="empConverter"
+                itemValue="#{theme}" itemLabel="#{theme.name}" showSourceControls="true" showTargetControls="true"
+                showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" responsive="true">
+         
+        <f:facet name="sourceCaption">Станции и их ID</f:facet>
+        <f:facet name="targetCaption">Выбранные станции</f:facet>
+ 
+        <p:ajax event="transfer" listener="#{pickListView.onTransfer}"  />
+        <p:ajax event="select" listener="#{pickListView.onSelect}" />
+        <p:ajax event="unselect" listener="#{pickListView.onUnselect}" />
+        <p:ajax event="reorder" listener="#{pickListView.onReorder}" />
+         
+        <p:column style="width:15%">
+            <h:outputText value="#{theme.id}"/> 
+        </p:column>
+        <p:column style="width:85%">
+            <h:outputText value="#{theme.name}"/>
+        </p:column>
+    </p:pickList>
+	    <table border="0" width="0%"  bgcolor="#FFFFFF" style="height: 0%; margin: auto; margin-top: 40px; margin-bottom: 40px;">
+		    <tr>
+			    <td >
+				    <p:commandButton  value="Графики"  action="#{pickListView.buttonAction}"> 
+				    </p:commandButton>
+			    </td>
+		    
+			    <td>
+				    <p:commandButton value="Таблица" action="#{pickListView.tableAction}"> 
+				    </p:commandButton>
+			    </td>
+		    </tr>
+	    </table>
+    </h:form>
+    
+   <h:form >
+    <style>
+    .ui-orderlist .ui-orderlist-list {
+		    height: 500px !important;
+	 }
+    </style>
+    <table border="1" width="90%"  bgcolor="#FFFFFF" style="align-content: center;height: 100%; margin: auto;">
+	    <tr>
+		    <td style="width: 50%;height: 500px;">
+		   	 <p:outputPanel style="width: 100%;height: 500px;overflow: auto;display: block">
+			        <p:tree 
+			        	
+				        style="width: 100%;
+				        font-size: 14px;
+				         border: transparent;
+				     	text-decoration: none;
+				     	text-align:left;
+				     	font-style: Consolas; overflow: auto;display: block"
+				     	value="#{treeEventsView.root}" 
+				     	var="node" selectionMode="single" 
+				     	selection="#{treeEventsView.selectedNode}"
+				     	animate="true">
+					        <p:ajax event="expand"  listener="#{treeEventsView.onNodeExpand}" />
+					        <p:ajax event="collapse"  listener="#{treeEventsView.onNodeCollapse}" />
+					        <p:ajax event="select"  listener="#{treeEventsView.onNodeSelect}" update="j_idt12:j_idt87:detailsPanel"/>
+					        <p:ajax event="unselect"  listener="#{treeEventsView.onNodeUnselect}" />
+				            <p:treeNode>
+				                <h:outputText value="#{node}"/>
+				            </p:treeNode>
+			        </p:tree>
+			        </p:outputPanel>
+			       </td>
+			       
+			       <td >
+				       <table>
+					       <tr>
+					       <td style="width: 100%px;height: 100%;overflow: auto;display: block">
+						       <p:commandButton icon="fas fa-angle-double-left" update="j_idt12:j_idt87:detailsPanel" action="#{treeEventsView.deleteAction}">
+			    			   </p:commandButton>
+					       </td>
+					       <td >
+						        <p:commandButton icon="fas fa-angle-double-right" update="j_idt12:j_idt87:detailsPanel" action="#{treeEventsView.dAction}">
+			    				</p:commandButton>
+					       </td>
+					       </tr>
+				       </table>
+			        </td>
+			       
+                    <td style="width: 100%;height: 100%;overflow: auto;display: block">
+                    
+                       <p:orderList id="detailsPanel" style="width: 790px;height:500px !important;
+				        font-size: 14px;
+				         border: transparent;
+				     	text-decoration: none;
+				     	text-align:left;
+				     	font-style: Consolas; overflow: auto;display: block"
+				     	responsive="true"
+                        value="#{treeEventsView.selected}" var="name" controlsLocation="none" itemLabel="#{name}" itemValue="#{name}">
+                        <p:ajax event="select" listener="#{treeEventsView.onSelect}" />
+				        <p:ajax event="unselect" listener="#{treeEventsView.onUnselect}"/>
+				        <p:ajax event="reorder" listener="#{treeEventsView.onReorder}" />
+				        </p:orderList>
+                   
+                    </td>
+            </tr>
+        </table>
+    </h:form>
+</h:body>
+<h:form style="margin: 50px 0px 0px 0px;background-color:#E6E6FA">
+			    <p:growl  showDetail="true" />
+			    <p:panel style="text-align:center;">
+			    	 <div>
+			    	 <h:outputText  value="Контакты"/>
+			    	 </div>
+			    	  <div>
+			       	 <h:outputText  value="Адрес: 249035, Россия, Калужская обл., г. Обнинск, ул. Королева 6, ВНИИГМИ-МЦД "/>
+			       	 </div>
+			       	  <div>
+			       	  <h:outputText value="Телефон приемной: +7(484)396-40-85, +7(484)397-41-81"/>
+			       	  </div>
+			       	  <div>
+			       	  <h:outputText value="E-mail: wdcb@meteo.ru"/>
+			       	  </div>
+			    </p:panel>
+	        </h:form>
+</html>

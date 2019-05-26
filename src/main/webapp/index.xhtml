@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    
+    <h:head>
+        <title>Material Login</title>
+        <link rel="stylesheet" href="/javax.faces.resource/charts/charts.css.jsf?ln=primefaces"/>
+        
+    </h:head>
+    <h:form style="margin: 0px 0px 0px 0px;">
+			    <p:growl id="msgs" showDetail="true" />
+			    <p:panel style="text-align:center;">
+			    	 <div>
+			    	 <h:outputText  value="Всероссийский Научно-исследовательский институт Гидрометеорологической Информации - Мировой центр Данных"/>
+			    	 </div>
+			    </p:panel>
+	        </h:form>
+    <h:body >
+        <div style="margin:10% auto;">
+                                        <h:form id="form-login">
+                                        <p:panel  header="Введите логин и пароль"  style="margin-bottom:20px;
+                                        width: 20%;
+                                        heigh: 100%;
+                                        margin: 0 auto;">
+											<table border="0" style=" margin: 0 auto;">
+											<tr>
+											<td>
+											<table>
+											<tr>
+											<td>
+									            <h:outputLabel for="username" value="Логин:" />
+									            </td>
+									            <td>
+									            <p:inputText id="username" value="#{login.username}"  label="username" />
+									            </td>
+									         </tr>  
+									         <tr> 
+									         <td>
+									            <h:outputLabel for="password" value="Пароль:" />
+									           </td>
+									           <td>
+									            <p:password id="password" value="#{login.password}"  label="password" />
+									            </td>
+									          </tr> 
+									          </table> 
+									          </td>
+									          </tr> 
+									          <tr >
+									          <td valign="middle" align="center">
+									                <p:commandButton value="Вход"  action="#{login.access()}" style="width:100%;" />
+									           </td>
+									                </tr>
+									                <tr>
+									                   <td valign="middle" align="center">
+									                <p:commandLink value="Регистрация" action="#{login.reg()}" />
+									                </td>
+									                </tr>
+									                <tr>
+									                   <td valign="middle" align="center">
+									                <p:commandLink value="Содержание"  action="#{login.book()}" />
+									                  </td>
+									                </tr>
+									        </table>
+									        </p:panel>
+                                        </h:form>
+        
+        </div>
+        </h:body>
+        
+	        <h:form style="margin: 0px 0px 0px 0px;position:absolute; bottom: 0; left: 0; right: 0;">
+			    <p:growl id="msgs" showDetail="true" />
+			    <p:panel style="text-align:center;">
+			    	 <div>
+			    	 <h:outputText  value="Контакты"/>
+			    	 </div>
+			    	  <div>
+			       	 <h:outputText  value="Адрес: 249035, Россия, Калужская обл., г. Обнинск, ул. Королева 6, ВНИИГМИ-МЦД "/>
+			       	 </div>
+			       	  <div>
+			       	  <h:outputText value="Телефон приемной: +7(484)396-40-85, +7(484)397-41-81"/>
+			       	  </div>
+			       	  <div>
+			       	  <h:outputText value="E-mail: wdcb@meteo.ru"/>
+			       	  </div>
+			    </p:panel>
+	        </h:form>
+</html>
+

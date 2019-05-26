@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+</h:head>
+
+<h:body >
+    <h:form>
+    <h:panelGrid columns="2" cellpadding="5">
+									            <h:outputLabel for="username1" value="Логин:" />
+									            <p:inputText id="username1"   label="username"/>
+									             
+									            <h:outputLabel for="password1" value="Пароль:" />
+									            <p:password id="password1"   label="password" />
+									            <h:outputLabel for="password2" value="Пароль:" />
+									            <p:password id="password2"   label="password" />
+									            <h:outputLabel for="Mail" value="Почта:" />
+									            <p:password id="mail"   label="mail" />
+									            <f:facet name="footer">
+									                <p:commandButton value="Зарегистрироватсья"/>
+									            </f:facet>  
+									        </h:panelGrid>
+    </h:form>
+</h:body>
+</html>
