@@ -13,14 +13,18 @@
  <h:form style="margin: 0px 0px 0px 0px;">
 			    <p:growl id="msgs" showDetail="true" />
 			    <p:panel style="text-align:center;" class="col s12 input-field">
-			    	 <h:commandLink style="margin: 0px 10px 0px 0px;" value="Домой" styleClass="btn btn-large"  />
-                     <h:commandLink value="Выход"  styleClass="btn btn-large" />
+			    	<p:commandLink   style="margin-right:20px;font-size: 14px;" >
+				  		  <a href="http://meteo.ru/"   style="margin-right:0px;font-size: 20px;">Домой</a>
+				    </p:commandLink>
+                    <p:commandLink   style="margin-right:20px;font-size: 14px;" >
+				  		  <a href="index.xhtml" style="margin-right:0px;font-size: 20px;">Выход</a>
+				    </p:commandLink>
 			    </p:panel>
 	        </h:form>
 </h:head>
 
 <h:body >
-    <p:tabView >
+    <p:tabView style="margin-right:0px;font-size: 14px;">
         <c:forEach items="#{tabBean.tabs}" var="tabInfo" varStatus="vs">
             <p:tab  title="#{tabInfo.title}" >
                 <ui:include src="#{tabInfo.page}.xhtml"/>

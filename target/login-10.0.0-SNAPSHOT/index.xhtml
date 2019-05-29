@@ -4,16 +4,11 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core">
-      
+    
     <h:head>
         <title>Material Login</title>
-        <!-- Compiled and minified CSS -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css" />
-        <!--Import jQuery before materialize.js-->
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-        <!-- Compiled and minified JavaScript -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
         <link rel="stylesheet" href="/javax.faces.resource/charts/charts.css.jsf?ln=primefaces"/>
+        
     </h:head>
     <h:form style="margin: 0px 0px 0px 0px;">
 			    <p:growl id="msgs" showDetail="true" />
@@ -23,55 +18,59 @@
 			    	 </div>
 			    </p:panel>
 	        </h:form>
-    <h:body style="background: rgb(112,118,229)  radial-gradient(circle, rgba(112,118,229,1) 29%, rgba(0,255,239,1) 100%);">
-        
-        <div class="valign-wrapper" id="login-page">
-            <div class="container">
-                <div class="center-align">
-                    <div class="row">
-                        <div class="col s6 offset-s3">
-                            <div class="card">
-                                <div class="card-content">
-                                   
-                                    <div class="left-align">
+    <h:body >
+        <div style="margin:10% auto;">
                                         <h:form id="form-login">
-                                            <p:growl autoUpdate="true" />
-                                            <div class="row">
-                                                <div class="col s12 input-field">
-                                                    <h:inputText id="username" value="#{login.username}" required="true" requiredMessage="User required" />
-                                                    <h:outputLabel for="username" value="Логин" />
-                                                </div>
-                                                <div class="col s12 input-field">
-                                                    <h:inputText id="password" required="true" value="#{login.password}" requiredMessage="Password required!" />
-                                                    <h:outputLabel for="password" value="Пароль" />
-                                                </div>
-                                                <div class="col s12 input-field" >
-                                                <center>
-                                                    <h:commandLink style="margin: 0px 10px 0px 0px;" value="Вход" styleClass="btn btn-large" actionListener="#{login.access()}" />
-                                                
-                                                	<h:commandLink value="Регистрация"  styleClass="btn btn-large" />
-                                                </center>
-                                                </div>
-                                            </div>
+                                        <p:panel  header="Введите логин и пароль"  style="margin-bottom:20px;
+                                        width: 20%;
+                                        heigh: 100%;
+                                        margin: 0 auto;">
+											<table border="0" style=" margin: 0 auto;">
+											<tr>
+											<td>
+											<table>
+											<tr>
+											<td>
+									            <h:outputLabel for="username" value="Логин:" />
+									            </td>
+									            <td>
+									            <p:inputText id="username" value="#{login.username}"  label="username" />
+									            </td>
+									         </tr>  
+									         <tr> 
+									         <td>
+									            <h:outputLabel for="password" value="Пароль:" />
+									           </td>
+									           <td>
+									            <p:password id="password" value="#{login.password}"  label="password" />
+									            </td>
+									          </tr> 
+									          </table> 
+									          </td>
+									          </tr> 
+									          <tr >
+									          <td valign="middle" align="center">
+									                <p:commandButton value="Вход"  action="#{login.access()}" style="width:100%;" />
+									           </td>
+									                </tr>
+									                <tr>
+									                   <td valign="middle" align="center">
+									                <p:commandLink value="Регистрация" action="#{login.reg()}" />
+									                </td>
+									                </tr>
+									                <tr>
+									                   <td valign="middle" align="center">
+									                <p:commandLink value="Содержание"  action="#{login.book()}" />
+									                  </td>
+									                </tr>
+									        </table>
+									        </p:panel>
                                         </h:form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        
         </div>
-        
-        
-        <script>
-            $(document).on("ready",function(){
-                $('#login-page').css({'height': window.innerHeight + 'px'});
-            });
-        </script>
         </h:body>
         
-	        <h:form style="margin: 0px 0px 0px 0px;">
+	        <h:form style="margin: 0px 0px 0px 0px;position:absolute; bottom: 0; left: 0; right: 0;">
 			    <p:growl id="msgs" showDetail="true" />
 			    <p:panel style="text-align:center;">
 			    	 <div>

@@ -6,12 +6,18 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<h:head></h:head>
+<h:head>
+</h:head>
 
-<h:body style="margin-left:50px">
-<h:form>
-	<p:lineChart model="#{pickListView.cartesianLinerModel}" style="width: 100%; height: 500px;"/>
-	  
-</h:form>
-   </h:body>
+<h:body >
+    <p:outputPanel id="PANEL" style="display:block">
+                        <table>
+                            <tr>
+                                <td>#{LineChartBean.filename}</td>
+                            </tr>
+                            
+                        </table>
+                    </p:outputPanel>
+    <p:chart type="line" model="#{lineChartBean.lineModel}" style="height:655px;width:1200px;"/>
+</h:body>
 </html>
