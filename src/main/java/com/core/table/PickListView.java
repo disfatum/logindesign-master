@@ -223,7 +223,7 @@ public class PickListView implements Serializable{
 	
 	    	return dat;
 	    	}
-	    	catch(Exception ex) {
+	    	catch( IOException ex) {
 	    		Map<String,Object> options = new HashMap<String, Object>();
 	      	   	 //options.put("resizable", false);
 	      	    	// это настройки для нового окна
@@ -236,6 +236,19 @@ public class PickListView implements Serializable{
 	      	        options.put("contentWidth", "100%");
 	      	   	PrimeFaces.current().dialog().openDynamic("error", options, null);
 	    	}
+    	catch(NumberFormatException ex1) {
+    		Map<String,Object> options = new HashMap<String, Object>();
+     	   	 //options.put("resizable", false);
+     	    	// это настройки для нового окна
+     	    	options.put("resizable", false);
+     	        options.put("draggable", true);
+     	        options.put("modal", true);
+     	        options.put("height", "120px");
+     	        options.put("width", "250px");
+     	        options.put("contentHeight", "100%");
+     	        options.put("contentWidth", "100%");
+     	   	PrimeFaces.current().dialog().openDynamic("error", options, null);
+    	}
     	}
     	else {
     		Map<String,Object> options = new HashMap<String, Object>();
