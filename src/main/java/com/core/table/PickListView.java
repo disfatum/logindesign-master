@@ -73,10 +73,11 @@ public class PickListView implements Serializable{
         themes = new DualListModel<Theme>(themesSource, themesTarget);
     }
     
-    public void tableAction() throws IOException {//вызов страницы с таблицей
+    public void tableAction()  {//вызов страницы с таблицей
+    try {
+    	Qq = getDat(themes.getTarget(),TreeBean.Selectfile);
     	table2 = new ArrayList<ThemeTable>();
     	if(themes.getTarget().size() > -1) {
-    	Qq = getDat(themes.getTarget(),TreeBean.Selectfile);
     	for(int i = 0; i < Qq.size();i++) {
     		table2.add(new ThemeTable(Qq.get(i).getId(),Qq.get(i).getName(),Qq.get(i).getIndicators()));
     		System.out.println(table2.get(i).getId()+" id");
@@ -105,12 +106,26 @@ public class PickListView implements Serializable{
     	    	options.put("resizable", false);
     	        options.put("draggable", true);
     	        options.put("modal", true);
-    	        options.put("height", "120px");
-    	        options.put("width", "250px");
+                options.put("height", "150px");
+    	        options.put("width", "300px");
     	        options.put("contentHeight", "100%");
     	        options.put("contentWidth", "100%");
     	   	PrimeFaces.current().dialog().openDynamic("error", options, null);
     	}
+    }
+    catch(Exception ex){
+    	Map<String,Object> options = new HashMap<String, Object>();
+	   	 //options.put("resizable", false);
+	    	// это настройки для нового окна
+	    	options.put("resizable", false);
+	        options.put("draggable", true);
+	        options.put("modal", true);
+            options.put("height", "150px");
+	        options.put("width", "300px");
+	        options.put("contentHeight", "100%");
+	        options.put("contentWidth", "100%");
+	   	PrimeFaces.current().dialog().openDynamic("error", options, null);
+    }
     }
     public void createDataTable() throws  IOException {
     	table2 = new ArrayList<ThemeTable>();
