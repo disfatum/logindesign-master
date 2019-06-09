@@ -37,16 +37,23 @@ public class TreeBean implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -4651910509113182213L;
-	
+	//тринод, само дерево					
 	private TreeNode chapterNode;
+	//для прикола
 	public  String FILEPATH = "";
 	public  String FILENAME = "";
+	//имена файлов выбранных 
 	public List<String> selectfile;
+	//имена выбранных
 	private List<String> selected ;
+	//имя и имя файла выбранного, таблицы справа
 	public List<Selects> FN = new ArrayList<Selects>();
 	boolean  counter = false;
+	//выбранное имя в дереве
 	public static String Select;
+	//выбранный файл в дереве
 	public static String Selectfile;
+	// название файла, который будет отображаться
 	public static String display;
 	
     public TreeNode getchapterNode() { 
@@ -54,11 +61,13 @@ public class TreeBean implements Serializable{
     	
         TreeNode inimodel = showTree("C:\\wildfly-16.0.0.Final\\standalone\\"
         		+ "deployments\\login-10.0.0-SNAPSHOT.war\\resources\\iniFile\\dbpart.ini");
+        // адднод для нулевых элементов дерева, а остальные аддноды для вложенных
         addNode(chapterNode,inimodel.getChildren().get(0).toString(),inimodel.getChildren());
 		
         return chapterNode;
        
     }
+    //экшн для кнопки "стрелочки", которая вправо
     public void dAction() {
     	if(FILENAME!=null) {
 
@@ -68,6 +77,7 @@ public class TreeBean implements Serializable{
     	//selectfile.add(FILEPATH);
     	System.out.println(FILENAME+" file "+FILEPATH+" file");
     }
+  //экшн для кнопки "стрелочки", которая влево
     public void deleteAction() {
     	
     	for(int i = 0; i < FN.size();i++) {
@@ -79,8 +89,11 @@ public class TreeBean implements Serializable{
     	}
     	selected.remove(Select);
     }
+    //рут для дерева
     private TreeNode root;
+    //секции для дерева
     ArrayList<IniSection> sections = new ArrayList<>();
+    //выбранный лист дерева
     private TreeNode selectedNode;
     
     @PostConstruct
@@ -100,6 +113,7 @@ public class TreeBean implements Serializable{
     public void setSelectedNode(TreeNode selectedNode) {
         this.selectedNode = selectedNode;
     }
+    //евент на выбор справа
     public void onSelect(SelectEvent event) {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Item Selected", event.getObject().toString()));
@@ -117,6 +131,8 @@ public class TreeBean implements Serializable{
     public void onUnselect(UnselectEvent event) {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Item Unselected", event.getObject().toString()));
+        Selectfile = null;
+        Select = null;
     }
      
     public void onReorder() {
@@ -132,7 +148,7 @@ public class TreeBean implements Serializable{
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Collapsed", event.getTreeNode().toString());
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
-    
+    //евень дерева на выбор из дерева
     public void onNodeSelect(NodeSelectEvent event) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected", event.getTreeNode().toString());
         FacesContext.getCurrentInstance().addMessage(null, message);
@@ -186,7 +202,7 @@ public class TreeBean implements Serializable{
             }
         }
     }
-
+//метод "показать дерево" , составляет само дерево
     public TreeNode showTree(String fname){
     	TreeNode treeModel = null;
         try {

@@ -50,6 +50,11 @@
 				    <p:commandButton value="Таблица" action="#{pickListView.tableAction}"> 
 				    </p:commandButton>
 			    </td>
+			    
+			    <td>
+				    <p:commandButton value="Очистить" action="#{pickListView.reload}"> 
+				    </p:commandButton>
+			    </td>
 		    </tr>
 	    </table>
     </h:form>
@@ -78,7 +83,7 @@
 				     	animate="true">
 					        <p:ajax event="expand"  listener="#{treeEventsView.onNodeExpand}" />
 					        <p:ajax event="collapse"  listener="#{treeEventsView.onNodeCollapse}" />
-					        <p:ajax event="select"  listener="#{treeEventsView.onNodeSelect}" update="j_idt12:j_idt87:detailsPanel"/>
+					        <p:ajax event="select"  listener="#{treeEventsView.onNodeSelect}" update="j_idt12:j_idt33:detailsPanel"/>
 					        <p:ajax event="unselect"  listener="#{treeEventsView.onNodeUnselect}" />
 				            <p:treeNode>
 				                <h:outputText value="#{node}"/>
@@ -91,11 +96,11 @@
 				       <table>
 					       <tr>
 					       <td style="width: 100%px;height: 100%;overflow: auto;display: block">
-						       <p:commandButton icon="fas fa-angle-double-left" update="j_idt12:j_idt87:detailsPanel" action="#{treeEventsView.deleteAction}">
+						       <p:commandButton icon="fas fa-angle-double-left" update="j_idt12:j_idt33:detailsPanel" action="#{treeEventsView.deleteAction}">
 			    			   </p:commandButton>
 					       </td>
 					       <td >
-						        <p:commandButton icon="fas fa-angle-double-right" update="j_idt12:j_idt87:detailsPanel" action="#{treeEventsView.dAction}">
+						        <p:commandButton icon="fas fa-angle-double-right" update="j_idt12:j_idt33:detailsPanel" action="#{treeEventsView.dAction}">
 			    				</p:commandButton>
 					       </td>
 					       </tr>

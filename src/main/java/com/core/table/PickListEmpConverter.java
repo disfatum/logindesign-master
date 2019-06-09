@@ -7,7 +7,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-
+// тут у них баг был при конвертации, почему то у них индекс коллекции стрингом был, переопределил
 @FacesConverter(value = "empConverter")
 public class PickListEmpConverter implements Converter {
     @Override

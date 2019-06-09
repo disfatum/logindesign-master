@@ -24,10 +24,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serializable;
@@ -43,7 +44,7 @@ public class PickListView implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -1887919223010361713L;
-
+    //модели для всех чартов и их буферы
 	private LineChartModel lineModel2; 
 	private BarChartModel Bar2; 
 	public static BarChartModel Bar;
@@ -54,8 +55,11 @@ public class PickListView implements Serializable{
 	
     @ManagedProperty("#{themeService}")
     //private ThemeService service;
+    // для таблицы
 	private List<ThemeTable> table2;
+    // для верхней таблицы 
     private DualListModel<Theme> themes;
+    // полные данные из файла
     public List<ThemeFull> Qq;
     public String Filename;
     public String Display;
@@ -69,8 +73,9 @@ public class PickListView implements Serializable{
         themes = new DualListModel<Theme>(themesSource, themesTarget);
     }
     
-    public void tableAction() throws IOException {//таблица
+    public void tableAction() throws IOException {//вызов страницы с таблицей
     	table2 = new ArrayList<ThemeTable>();
+    	if(themes.getTarget().size() > -1) {
     	Qq = getDat(themes.getTarget(),TreeBean.Selectfile);
     	for(int i = 0; i < Qq.size();i++) {
     		table2.add(new ThemeTable(Qq.get(i).getId(),Qq.get(i).getName(),Qq.get(i).getIndicators()));
@@ -83,6 +88,7 @@ public class PickListView implements Serializable{
     	Table = table2;
     	Map<String,Object> options = new HashMap<String, Object>();
    	 //options.put("resizable", false);
+    	// это настройки для нового окна
     	options.put("resizable", false);
         options.put("draggable", true);
         options.put("modal", true);
@@ -91,6 +97,20 @@ public class PickListView implements Serializable{
         options.put("contentHeight", "100%");
         options.put("contentWidth", "100%");
    	PrimeFaces.current().dialog().openDynamic("TableData", options, null);
+    	}
+    	else {
+    		Map<String,Object> options = new HashMap<String, Object>();
+    	   	 //options.put("resizable", false);
+    	    	// это настройки для нового окна
+    	    	options.put("resizable", false);
+    	        options.put("draggable", true);
+    	        options.put("modal", true);
+    	        options.put("height", "120px");
+    	        options.put("width", "250px");
+    	        options.put("contentHeight", "100%");
+    	        options.put("contentWidth", "100%");
+    	   	PrimeFaces.current().dialog().openDynamic("error", options, null);
+    	}
     }
     public void createDataTable() throws  IOException {
     	table2 = new ArrayList<ThemeTable>();
@@ -100,13 +120,15 @@ public class PickListView implements Serializable{
     	}
     }
     public void buttonAction() throws IOException {
+    	// построение графиков
     	System.out.println("Click");  
     	//cartesianLinerModel = createCartesianLinerModel();
     	Display = TreeBean.display;
+    	Filename = TreeBean.Select;
     	System.out.println("dis "+Display);
-    	if(Display != null && Display.toLowerCase().contains("l")) {
+    	if(Display != null && Display.toLowerCase().contains("l") && themes.getTarget().size() > -1) {
 	    	Qq = getDat(themes.getTarget(),TreeBean.Selectfile);
-	    	Filename = TreeBean.Select;
+	    	//Filename = TreeBean.Select;
 	    	createLineModels();
 	    	lineModel = lineModel2;
 	    	Map<String,Object> options = new HashMap<String, Object>();
@@ -119,9 +141,10 @@ public class PickListView implements Serializable{
 	         options.put("contentWidth", "100%");
 	    	PrimeFaces.current().dialog().openDynamic("Chartjs", options, null);
     	}
-    	else if (Display != null && Display.toLowerCase().contains("b")) {
+    	// бар чарт
+    	else if (Display != null && Display.toLowerCase().contains("b") && themes.getTarget().size() > -1) {
     		Qq = getDat(themes.getTarget(),TreeBean.Selectfile);
-	    	Filename = TreeBean.Select;
+	    	//Filename = TreeBean.Select;
 	    	createBarModels();
 	    	Bar = Bar2;
 	    	Map<String,Object> options = new HashMap<String, Object>();
@@ -134,9 +157,10 @@ public class PickListView implements Serializable{
 	         options.put("contentWidth", "100%");
 	    	PrimeFaces.current().dialog().openDynamic("barChart", options, null);
     	}
-    	else if (Display != null && Display.toLowerCase().contains("r")) {
+    	// радио чарт
+    	else if (Display != null && Display.toLowerCase().contains("r") && themes.getTarget().size() > -1) {
     		Qq = getDat(themes.getTarget(),TreeBean.Selectfile);
-	    	Filename = TreeBean.Select;
+	    	//Filename = TreeBean.Select;
 	    	createRadarModel();
 	    	Radar = radar2;
 	    	Map<String,Object> options = new HashMap<String, Object>();
@@ -149,6 +173,7 @@ public class PickListView implements Serializable{
 	         options.put("contentWidth", "100%");
 	    	PrimeFaces.current().dialog().openDynamic("radar", options, null);
     	}
+    	//ошибка
     	else {
     		Map<String,Object> options = new HashMap<String, Object>();
        	 //options.put("resizable", false);
@@ -162,9 +187,11 @@ public class PickListView implements Serializable{
     	}
     	
     }
-    public List<ThemeFull> getDat(List<Theme> df, String name) throws NumberFormatException, IOException {
+    //получаем данные из ини файлов
+    public List<ThemeFull> getDat(List<Theme> df, String name)  {
+    	if(name != null) {
     	List<ThemeFull> dat = new ArrayList<ThemeFull>();
-    	
+    	try {
         String strLine;
         BufferedReader br;
 		
@@ -191,15 +218,44 @@ public class PickListView implements Serializable{
             		i = themes.getTarget().size()+999;
             	}
             }
-        }
-        br.close();
-    	return dat;
-    	
+	        }
+	        br.close();
+	
+	    	return dat;
+	    	}
+	    	catch(Exception ex) {
+	    		Map<String,Object> options = new HashMap<String, Object>();
+	      	   	 //options.put("resizable", false);
+	      	    	// это настройки для нового окна
+	      	    	options.put("resizable", false);
+	      	        options.put("draggable", true);
+	      	        options.put("modal", true);
+	      	        options.put("height", "120px");
+	      	        options.put("width", "250px");
+	      	        options.put("contentHeight", "100%");
+	      	        options.put("contentWidth", "100%");
+	      	   	PrimeFaces.current().dialog().openDynamic("error", options, null);
+	    	}
+    	}
+    	else {
+    		Map<String,Object> options = new HashMap<String, Object>();
+   	   	 //options.put("resizable", false);
+   	    	// это настройки для нового окна
+   	    	options.put("resizable", false);
+   	        options.put("draggable", true);
+   	        options.put("modal", true);
+   	        options.put("height", "120px");
+   	        options.put("width", "250px");
+   	        options.put("contentHeight", "100%");
+   	        options.put("contentWidth", "100%");
+   	   	PrimeFaces.current().dialog().openDynamic("error", options, null);
+    	}
+		return null;
     }
     public List<Theme> getTarget() {
 		return this.getThemes().getTarget();
     }
-   
+   //данные  линейный график
         private void createLineModels() {
         	 lineModel2 = new LineChartModel();
              for(int i = 0; i < themes.getTarget().size();i++) {
@@ -223,7 +279,7 @@ public class PickListView implements Serializable{
 
              lineModel2.setShowPointLabels(true);
          }
-        
+   //данные  бар     
         private void createBarModels() {
         	Bar2 = new BarChartModel();
             for(int i = 0; i < themes.getTarget().size();i++) {
@@ -247,6 +303,7 @@ public class PickListView implements Serializable{
 
             Bar2.setShowPointLabels(true);
         }
+        // данные для радара, ха назвал радио выше хех
         public void createRadarModel() {
         	radar2 = new RadarChartModel();
             ChartData data = new ChartData();
@@ -293,7 +350,7 @@ public class PickListView implements Serializable{
             radar2.setOptions(options);
             radar2.setData(data);
         }
-    
+    // читает кат файл
     public List<Theme> readCAT()  {
     	List<Theme> df = new ArrayList<Theme>();
     	try {
@@ -358,6 +415,10 @@ public class PickListView implements Serializable{
     public void onReorder() {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "List Reordered", null));
+    }
+    public void reload() throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
     }
 	public LineChartModel getLineModel2() {
 		return lineModel2;

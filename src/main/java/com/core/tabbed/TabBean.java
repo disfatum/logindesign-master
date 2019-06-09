@@ -19,8 +19,10 @@ public class TabBean implements Serializable{
 
     @PostConstruct
     public void init() {
-          tabs = Arrays.asList(new TabInfo("Содержание", "book"),
-                  new TabInfo("Таблицы", "tables")
+    	// 2 таба , как на странице после регистрации
+    	
+          tabs = Arrays.asList(new TabInfo("Таблицы", "tables"),
+        		  new TabInfo("Содержание", "book")
                   );
     }
 

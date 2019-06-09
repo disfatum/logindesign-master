@@ -18,12 +18,30 @@
 									             
 									            <h:outputLabel for="password1" value="Пароль:" />
 									            <p:password id="password1"   label="password" />
-									            <h:outputLabel for="password2" value="Пароль:" />
+									            
+									            <h:outputLabel for="password2" value="Подтверждение пароля:" />
 									            <p:password id="password2"   label="password" />
+									            
+									            <h:outputLabel for="fname" value="Фамилия:" />
+									            <p:password id="lname"   label="lname" />
+									            
+									            <h:outputLabel for="Имя" value="Имя:" />
+									            <p:password id="fname"   label="fname" />
+									            
 									            <h:outputLabel for="Mail" value="Почта:" />
 									            <p:password id="mail"   label="mail" />
+									            
+									            <h:outputLabel for="org" value="Организация:" />
+									            <p:password id="org"   label="org" />
+									            
+									            <h:outputLabel for="city" value="Город:" />
+									            <p:password id="city"   label="city" />
+									            
+									            <h:outputLabel for="country" value="Страна:" />
+									            <p:password id="country"   label="country" />
+									            
 									            <f:facet name="footer">
-									                <p:commandButton value="Зарегистрироватсья"/>
+									                <p:commandButton value="Зарегистрироватсья" action="#{login.registration()}"/>
 									            </f:facet>  
 									        </h:panelGrid>
     </h:form>
