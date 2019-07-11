@@ -35,7 +35,7 @@ public class ThemeTable {
 			if( i == 4) {
 				this.may = arr[i];
 			}
-			if( i == 50) {
+			if( i == 5) {
 				this.jun = arr[i];
 			}
 			if( i == 6) {

@@ -63,6 +63,7 @@ public class PickListView implements Serializable{
     public List<ThemeFull> Qq;
     public String Filename;
     public String Display;
+    
     @PostConstruct
     public void init()  {
        
@@ -141,7 +142,7 @@ public class PickListView implements Serializable{
     	Display = TreeBean.display;
     	Filename = TreeBean.Select;
     	System.out.println("dis "+Display);
-    	if(Display != null && Display.toLowerCase().contains("l") && themes.getTarget().size() > -1) {
+    	if(Display != "" && Display.toLowerCase().contains("l") && themes.getTarget().size() > -1) {
 	    	Qq = getDat(themes.getTarget(),TreeBean.Selectfile);
 	    	//Filename = TreeBean.Select;
 	    	createLineModels();
@@ -157,7 +158,7 @@ public class PickListView implements Serializable{
 	    	PrimeFaces.current().dialog().openDynamic("Chartjs", options, null);
     	}
     	// бар чарт
-    	else if (Display != null && Display.toLowerCase().contains("b") && themes.getTarget().size() > -1) {
+    	else if (Display != "" && Display.toLowerCase().contains("b") && themes.getTarget().size() > -1) {
     		Qq = getDat(themes.getTarget(),TreeBean.Selectfile);
 	    	//Filename = TreeBean.Select;
 	    	createBarModels();
@@ -173,7 +174,7 @@ public class PickListView implements Serializable{
 	    	PrimeFaces.current().dialog().openDynamic("barChart", options, null);
     	}
     	// радио чарт
-    	else if (Display != null && Display.toLowerCase().contains("r") && themes.getTarget().size() > -1) {
+    	else if (Display != "" && Display.toLowerCase().contains("r") && themes.getTarget().size() > -1) {
     		Qq = getDat(themes.getTarget(),TreeBean.Selectfile);
 	    	//Filename = TreeBean.Select;
 	    	createRadarModel();
@@ -204,7 +205,7 @@ public class PickListView implements Serializable{
     }
     //получаем данные из ини файлов
     public List<ThemeFull> getDat(List<Theme> df, String name)  {
-    	if(name != null) {
+    	if(name != "") {
     	List<ThemeFull> dat = new ArrayList<ThemeFull>();
     	try {
         String strLine;
@@ -331,7 +332,7 @@ public class PickListView implements Serializable{
 
             Bar2.setShowPointLabels(true);
         }
-        // данные для радара, ха назвал радио выше хех
+        // данные для радара
         public void createRadarModel() {
         	radar2 = new RadarChartModel();
             ChartData data = new ChartData();

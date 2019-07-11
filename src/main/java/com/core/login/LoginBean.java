@@ -78,7 +78,7 @@ public class LoginBean implements Serializable{
         	
         	String ip = org.omnifaces.util.Faces.getRemoteAddr();
         	System.out.println(ip+" ip");
-        	//добавляем лог в базу данных об успешном, да бля хули я тебе это пишу , там в описании метода это написано совсем чтоли тупой??7??777
+        	//добавляем лог в базу данных об успешном
         	dbget.logUserLogin(dbget.lastlg+1, connect, ip);
             //Here you must put your code to redirect or do something 
             context.addMessage(null, new FacesMessage("Successful login",  "You are logged in") );

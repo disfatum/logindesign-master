@@ -19,6 +19,8 @@ public class LineChartBean implements Serializable{
 	private static final long serialVersionUID = 1826700917969821415L;
 	private LineChartModel lineModel;
 	private String filename;
+	
+	//лайн чарт
     @PostConstruct
     public void init() {
     	filename = new String();

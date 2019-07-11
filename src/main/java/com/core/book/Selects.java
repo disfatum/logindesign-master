@@ -1,5 +1,5 @@
 package com.core.book;
-
+//это для выбранных данных из нижней таблицы
 public class Selects {
 
 	private String filename;

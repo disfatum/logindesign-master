@@ -131,8 +131,8 @@ public class TreeBean implements Serializable{
     public void onUnselect(UnselectEvent event) {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Item Unselected", event.getObject().toString()));
-        Selectfile = null;
-        Select = null;
+        Selectfile = "";
+        Select = "";
     }
      
     public void onReorder() {
@@ -148,7 +148,7 @@ public class TreeBean implements Serializable{
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Collapsed", event.getTreeNode().toString());
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
-    //евень дерева на выбор из дерева
+    //евент дерева на выбор из дерева
     public void onNodeSelect(NodeSelectEvent event) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Selected", event.getTreeNode().toString());
         FacesContext.getCurrentInstance().addMessage(null, message);

@@ -14,7 +14,7 @@ public class ChartView implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 7484646784781587396L;
-	
+	//бар чарт
 	private BarChartModel barModel;
 	
 	@PostConstruct
